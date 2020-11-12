@@ -20,14 +20,12 @@ echo "
 "
 
 random=$((wikit list of art techniques -a) | python scrape.py) 
-random="pounce techniques techniques"
 found_entry=$(wikit $random -a --link | tee /dev/tty)
 while [[ $found_entry == *"not found :^("* ]]; do
   random=${random% *} 
   echo "Trying search again under $random :^)"
   found_entry=$(wikit $random -a --link | tee /dev/tty)
 done
-
 echo "---------------------------------------------------------------------------------"
 echo "---------------------------------------------------------------------------------"
 echo "$random"
