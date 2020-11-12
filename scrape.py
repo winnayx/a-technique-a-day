@@ -14,7 +14,6 @@ for line in sys.stdin:
     sub_techs = sub_techs[1:]
     
     techniques.extend(sub_techs)
-#print(techniques)
 print(random.choice(techniques))
 
 
