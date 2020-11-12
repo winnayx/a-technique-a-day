@@ -5,7 +5,7 @@ echo "
    | | | |  | | |  | |/ /\ \\   /    \___ \ 
    | | | |__| | |__| / ____ \| |     ____) |
    |_|  \____/|_____/_/    \_\_|    |_____/ 
-          _____ _______ 
+          _____ _____
     /\   |  __ \__   __|
    /  \  | |__) | | |   
   / /\ \ |  _  /  | |   
@@ -20,13 +20,18 @@ echo "
 "
 
 random=$((wikit list of art techniques -a) | python scrape.py) 
-found_entry=$(wikit $random -a --link)
-if [[ $found_entry == *"not found :^("* ]]; then
-  echo "Not found initially with technique keywork"
-  suffix=" technique"
-  random_wo_tech=${random/%$suffix}
-  echo "$(wikit $random_wo_tech -a --link)"
-else
-  echo "$found_entry"
-fi
+random="pounce techniques techniques"
+found_entry=$(wikit $random -a --link | tee /dev/tty)
+while [[ $found_entry == *"not found :^("* ]]; do
+  random=${random% *} 
+  echo "Trying search again under $random :^)"
+  found_entry=$(wikit $random -a --link | tee /dev/tty)
+done
+
+echo "---------------------------------------------------------------------------------"
+echo "---------------------------------------------------------------------------------"
+echo "$random"
+echo "---------------------------------------------------------------------------------"
+echo "---------------------------------------------------------------------------------"
+echo "$found_entry"
 
